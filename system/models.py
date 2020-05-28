@@ -9,6 +9,10 @@ class School(models.Model):
     name = models.CharField(max_length = 100)
     location = models.CharField(max_length = 50)
 
+class Gallery(models.Model):
+    name = models.CharField(max_length = 15,blank = True)
+    image = models.ImageField(blank = True)
+
 class Student(models.Model):
     GENDER_CHOICES = [
         ('F', 'FEMALE'),
@@ -45,7 +49,7 @@ class Staff(models.Model):
     dob = models.DateField(blank = True)
     designation = models.CharField(max_length = 10, blank = True)
     job_group = models.CharField(max_length = 10, blank = True)
-    dofa = models.CharField(max_length = 10, blank = True)
+    dofa = models.DateField(blank = True)
     id_no = models.IntegerField(blank = True)
     kra_pin = models.IntegerField(blank = True)
     gender = models.CharField(max_length = 3, choices = GENDER_CHOICES, blank = True)
@@ -62,9 +66,6 @@ class Structure_Inventory(models.Model):
     total_surface_area = models.IntegerField(blank = True)
     remarks = models.TextField(max_length = 40, blank = True)
 
-class Gallery(models.Model):
-    name = models.CharField(max_length = 15,blank = True)
-    image = models.ImageField(blank = True)
 
 class Ground_Inventory(models.Model):
     ground_type = models.CharField(max_length = 15, blank = True)
@@ -74,6 +75,7 @@ class Ground_Inventory(models.Model):
     unused_area = models.IntegerField(blank = True)
     total_surface_area = models.IntegerField(blank = True)
     remarks = models.TextField(max_length = 40, blank = True)
+
 
 class Profile(models.Model):
     id = models.AutoField(primary_key = True)
