@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'system',
-    # 'django-filters',
+    'django_filters',
     'bootstrap4'
 ]
 

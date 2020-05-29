@@ -7,11 +7,13 @@ class StudentFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields = {
-            'gender': ['exact'],
+            'full_name' : ['exact'],
             'adm_no': ['exact'],
+            'gender': ['exact'],
             'guardian_name' : ['icontains'],
-            'full_name' : ['icontains']
-            'last_school': ['icontains']
+            # 'adm_date': ['year__lt', 'year__gt']
+            'border_or_day': ['exact'],
+            'home_address': ['icontains']
         }
 
 class StaffFilter(django_filters.FilterSet):
@@ -22,7 +24,7 @@ class StaffFilter(django_filters.FilterSet):
             'tsc_no': ['icontains'],
             'designation': ['icontains'],
             'job_group': ['icontains'],
-            'gender': ['exact']
+            'gender': ['exact'],
         }
 
 class StructureFilter(django_filters.FilterSet):
@@ -31,6 +33,8 @@ class StructureFilter(django_filters.FilterSet):
         fields = {
             'description': ['icontains'],
             'struct_type': ['icontains'],
+            'total_quantity': ['exact'],
+            'remarks':['icontains']
         }
 
 class GroundFilter(django_filters.FilterSet):
@@ -39,5 +43,7 @@ class GroundFilter(django_filters.FilterSet):
         fields = {
             'description': ['icontains'],
             'ground_type': ['icontains'],
+            'total_area': ['exact'],
+            'remarks':['icontains']
         }
 

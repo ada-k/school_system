@@ -8,7 +8,7 @@ from .filters import StudentFilter, StaffFilter, StructureFilter, GroundFilter
 class StudentForm(ModelForm):
     class Meta:
         model = Student
-        fields = ['adm_no', 'adm_date','class_on_adm_day', 'dob', 'gender', 'full_name', 'guardian_name', 'home_address,', 'last_school','excempted_from_religious_instr', 'leaving_date', 'leaving_cert_no', 'remarks' ] 
+        fields = ['adm_no', 'adm_date','class_on_adm_day', 'dob', 'gender', 'full_name', 'guardian_name', 'home_address', 'last_school','excempted_from_religious_instr', 'leaving_date', 'leaving_cert_no', 'remarks' ] 
 def student(request):
     students  = Student.objects.all()
     form = StudentForm(request.POST or None)
@@ -17,16 +17,23 @@ def student(request):
     context = {
         'students':students,
         'form':form,
-        'filter' : StudentFilter(request.GET, queryset = lads)
         }
      
     return render(request, 'student.html', context)
+
+def student_query(request):
+    students  = Student.objects.all()
+    context = {
+        'students':students,
+        'filter' : StudentFilter(request.GET, queryset = students)
+    }
+    return render(request, 'student_query.html', context)
 
 
 class StaffForm(ModelForm):
     class Meta:
         model = Staff
-        fields = ['full_name', 'tsc_no','dob', 'designation', 'job_group', 'dofa', 'id_no', 'kra_pin,', 'gender','contact', 'email'] 
+        fields = ['full_name', 'tsc_no','dob', 'designation', 'job_group', 'dofa', 'id_no', 'kra_pin', 'gender','contact', 'email'] 
 def staff(request):
     staff  = Staff.objects.all()
     form = StaffForm(request.POST or None)
@@ -35,10 +42,17 @@ def staff(request):
     context = {
         'staff':staff,
         'form':form,
-        'filter' : StaffFilter(request.GET, queryset = lads)
         }
      
     return render(request, 'staff.html', context)
+
+def staff_query(request):
+    staff  = Staff.objects.all()
+    context = {
+        'staff':staff,
+        'filter' : StaffFilter(request.GET, queryset = staff)
+    }
+    return render(request, 'staff_query.html', context)
 
 def gallery(request):
     context = {
@@ -67,16 +81,23 @@ def structures(request):
     context = {
         'structures':structures,
         'form':form,
-        'filter' : StructureFilter(request.GET, queryset = lads)
         }
      
     return render(request, 'structure.html', context)
+
+def structures_query(request):
+    structures  = Structure_Inventory.objects.all()
+    context = {
+        'structures':structures,
+        'filter' : StructureFilter(request.GET, queryset = structures)
+    }
+    return render(request, 'structure_query.html', context)
 
 class GroundForm(ModelForm):
     class Meta:
         model = Ground_Inventory
         fields = ['ground_type', 'description','total_area', 'area_to_repair', 'unused_area', 'total_surface_area', 'remarks'] 
-def staff(request):
+def ground(request):
     grounds  = Ground_Inventory.objects.all()
     form = GroundForm(request.POST or None)
     if form.is_valid():
@@ -84,10 +105,17 @@ def staff(request):
     context = {
         'grounds':grounds,
         'form':form,
-        'filter' : GroundFilter(request.GET, queryset = lads)
         }
      
     return render(request, 'ground.html', context)
+def ground_query(request):
+    grounds  = Ground_Inventory.objects.all()
+    context = {
+        'grounds':grounds,
+        'filter' : GroundFilter(request.GET, queryset = grounds)
+    }
+    return render(request, 'ground_query.html', context)
+
 
 
 
