@@ -3,6 +3,8 @@ from django.forms import ModelForm
 from django.template import RequestContext
 from .models import Student, Staff, Gallery, School, Structure_Inventory, Ground_Inventory, Profile
 from .filters import StudentFilter, StaffFilter, StructureFilter, GroundFilter
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 # Create your views here.
 class StudentForm(ModelForm):
@@ -20,6 +22,24 @@ def student(request):
         }
      
     return render(request, 'student.html', context)
+
+class StudentDelForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = ['adm_no'] 
+
+def student_delete(request):
+    students  = Student.objects.all()
+    form = StudentDelForm(request.POST or None)
+    if form.is_valid() and request.method == 'POST':
+        item_id = int(request.POST.get('adm_no'))
+        item = Student.objects.get(id=item_id)
+        item.delete()
+    context = {
+        'students':students,
+        'form':form
+        }
+    return render(request, 'student_delete.html', context)
 
 def student_query(request):
     students  = Student.objects.all()
@@ -46,6 +66,24 @@ def staff(request):
      
     return render(request, 'staff.html', context)
 
+class StaffDelForm(ModelForm):
+    class Meta:
+        model = Staff
+        fields = ['tsc_no'] 
+
+def staff_delete(request):
+    staff  = Staff.objects.all()
+    form = StaffDelForm(request.POST or None)
+    if form.is_valid() and request.method == 'POST':
+        item_id = int(request.POST.get('tsc_no'))
+        item = Staff.objects.get(id=item_id)
+        item.delete()
+    context = {
+        'staff':staff,
+        'form':form
+        }
+    return render(request, 'staff_delete.html', context)
+
 def staff_query(request):
     staff  = Staff.objects.all()
     context = {
@@ -53,21 +91,6 @@ def staff_query(request):
         'filter' : StaffFilter(request.GET, queryset = staff)
     }
     return render(request, 'staff_query.html', context)
-
-def gallery(request):
-    context = {
-        'images': Gallery.objects.all()
-    }
-    return render(request, 'gallery.html', context)
-
-def school(request):
-    context = {
-        'schools': School.objects.all()
-    }
-    return render(request, 'school.html', context)
-
-def profile(request):
-    pass
 
 class StructureForm(ModelForm):
     class Meta:
@@ -84,6 +107,24 @@ def structures(request):
         }
      
     return render(request, 'structure.html', context)
+
+class StructureDelForm(ModelForm):
+    class Meta:
+        model = Structure_Inventory
+        fields = ['struct_type'] 
+
+def structure_delete(request):
+    structures  = Structure_Inventory.objects.all()
+    form = StructureDelForm(request.POST or None)
+    if form.is_valid() and request.method == 'POST':
+        item_id = int(request.POST.get('struct_type'))
+        item = Structure_Inventory.objects.get(id=item_id)
+        item.delete()
+    context = {
+        'structures':structures,
+        'form':form
+        }
+    return render(request, 'structure_delete.html', context)
 
 def structures_query(request):
     structures  = Structure_Inventory.objects.all()
@@ -108,6 +149,26 @@ def ground(request):
         }
      
     return render(request, 'ground.html', context)
+
+class GroundDelForm(ModelForm):
+    class Meta:
+        model = Ground_Inventory
+        fields = ['ground_type'] 
+
+def ground_delete(request):
+    grounds  = Ground_Inventory.objects.all()
+    form = GroundDelForm(request.POST or None)
+    if form.is_valid() and request.method == 'POST':
+        item_id = int(request.POST.get('ground_type'))
+        item = Ground_Inventory.objects.get(id=item_id)
+        item.delete()
+    context = {
+        'grounds':grounds,
+        'form':form
+        }
+    return render(request, 'ground_delete.html', context)
+
+
 def ground_query(request):
     grounds  = Ground_Inventory.objects.all()
     context = {
@@ -117,7 +178,20 @@ def ground_query(request):
     return render(request, 'ground_query.html', context)
 
 
+def gallery(request):
+    context = {
+        'images': Gallery.objects.all()
+    }
+    return render(request, 'gallery.html', context)
 
+def school(request):
+    context = {
+        'schools': School.objects.all()
+    }
+    return render(request, 'school.html', context)
+
+def profile(request):
+    pass
 
 
 

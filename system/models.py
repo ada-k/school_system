@@ -9,6 +9,7 @@ class School(models.Model):
     id = models.AutoField(primary_key = True)
     name = models.CharField(max_length = 100, null=True)
     location = models.CharField(max_length = 50, null=True)
+    image = models.ImageField(null = True, blank = True)
 
 class Gallery(models.Model):
     name = models.CharField(max_length = 15,blank = True, null=True)
@@ -37,7 +38,7 @@ class Student(models.Model):
     excempted_from_religious_instr = models.CharField(max_length  = 10, blank = True, null=True)
     leaving_date = PartialDateField(blank = True, null=True)
     leaving_cert_no = models.CharField(max_length = 15, blank = True, null=True)
-    remarks = models.TextField(max_length = 40, blank = True, null=True)
+    remarks = models.CharField(max_length = 40, blank = True, null=True)
 
 
 class Staff(models.Model):
@@ -46,11 +47,11 @@ class Staff(models.Model):
         ('M', 'MALE'),
         ('I', 'INTERSEX')
     ]
-    full_name = models.CharField(max_length = 20, blank = True, null=True)
+    full_name = models.CharField(max_length = 30, blank = True, null=True)
     tsc_no = models.CharField(max_length = 10, blank = True, null=True)
     dob = PartialDateField(blank = True, null=True)
-    designation = models.CharField(max_length = 10, blank = True, null=True)
-    job_group = models.CharField(max_length = 10, blank = True, null=True)
+    designation = models.CharField(max_length = 20, blank = True, null=True)
+    job_group = models.CharField(max_length = 30, blank = True, null=True)
     dofa = PartialDateField(blank = True, null=True)
     id_no = models.IntegerField(blank = True, null=True)
     kra_pin = models.IntegerField(blank = True, null=True)
@@ -66,7 +67,7 @@ class Structure_Inventory(models.Model):
     quantity_to_replace = models.IntegerField(blank = True, null=True)
     unused_quantity = models.IntegerField(blank = True, null=True)
     total_surface_area = models.IntegerField(blank = True, null=True)
-    remarks = models.TextField(max_length = 40, blank = True, null=True)
+    remarks = models.CharField(max_length = 40, blank = True, null=True)
 
 
 class Ground_Inventory(models.Model):
@@ -76,7 +77,7 @@ class Ground_Inventory(models.Model):
     area_to_repair = models.IntegerField(blank = True, null=True)
     unused_area = models.IntegerField(blank = True, null=True)
     total_surface_area = models.IntegerField(blank = True, null=True)
-    remarks = models.TextField(max_length = 40, blank = True, null=True)
+    remarks = models.CharField(max_length = 40, blank = True, null=True)
 
 
 class Profile(models.Model):
