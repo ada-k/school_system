@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 
-def index(request):
-    context = {
+# def index(request):
+#     context = {
 
-    }
-    return render(request, 'index.html', context)
+#     }
+#     return render(request, 'index.html', context)
 
 def login_view(request):
     username= request.POST.get('username')
@@ -13,10 +14,11 @@ def login_view(request):
     if user is not None:
         login(request, user)
         if request.user.is_authenticated:
-            return render(request, "index.html")
+            return render(request, "school.html")
     else:
         return render(request, "login.html")
 
 def logout_view(request):
     logout(request)
-    return render(request, "login.html", {"message":"Logged Out."})
+
+    return redirect("login")
